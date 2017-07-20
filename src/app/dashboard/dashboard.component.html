@@ -1,4 +1,4 @@
-<br-book *ngFor="let b of books" [book]="b" (rated)="reorderBooks($event)"></br-book>
+<br-book *ngFor="let b of books$ | async" [book]="b" (rated)="reorderBooks($event)"></br-book>
 
 <hr>
 <a [href]="url">Angular.Schule</a>
