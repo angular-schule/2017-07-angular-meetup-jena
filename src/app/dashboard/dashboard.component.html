@@ -1,0 +1,4 @@
+<h1>{{ title }}</h1>
+
+
+<br-book *ngFor="let b of books" [book]="b" (rated)="reorderBooks($event)"></br-book>
