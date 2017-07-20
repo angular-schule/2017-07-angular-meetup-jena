@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Book } from '../shared/book';
+import { BookStoreService } from '../book-store.service';
 
 @Component({
   selector: 'br-dashboard',
@@ -9,19 +10,15 @@ import { Book } from '../shared/book';
 })
 export class DashboardComponent implements OnInit {
 
-  books: Book[] = [];
-  title: string;
+  books: Book[];
   url = 'http://angular.schule';
 
-  constructor() { }
+  constructor(private bs: BookStoreService) { }
 
   ngOnInit() {
-    this.books = [
-      new Book('000', 'Angular', 'Zurück in die Zukunft', 5),
-      new Book('111', 'AngularJS 1.x', 'Oldie but goldie', 3)
-    ];
-
-    this.title = 'jenadevs';
+    this.bs
+      .getAll()
+      .subscribe(books => this.books = books);
   }
 
   reorderBooks(book: Book) {

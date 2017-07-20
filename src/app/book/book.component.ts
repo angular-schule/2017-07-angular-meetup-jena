@@ -11,6 +11,7 @@ export class BookComponent implements OnInit {
 
   @Output() rated = new EventEmitter<Book>();
   @Input() book: Book;
+  title: string;
 
   constructor() { }
 
