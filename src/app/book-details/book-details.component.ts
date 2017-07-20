@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
 import { Book } from './../shared/book';
-import 'rxjs/add/operator/map';
+import { BookStoreService } from '../book-store.service';
 
 @Component({
   selector: 'br-book-details',
@@ -14,20 +14,14 @@ export class BookDetailsComponent implements OnInit {
   isbn: string;
   book = new Book('', '', '');
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) { }
+  constructor(private route: ActivatedRoute, private bs: BookStoreService) { }
 
   ngOnInit() {
     const isbn = this.route.snapshot.params['isbn'];
 
-    this.http.get(`https://book-monkey2-api.angular-buch.com/book/${isbn}`)
-      .map((rawBook: any) =>
-            new Book(
-              rawBook.isbn,
-              rawBook.title,
-              rawBook.description,
-              rawBook.rating)
-        )
-      .subscribe(data => this.book = data);
+    this.bs
+      .getSingle(isbn)
+      .subscribe(book => this.book = book);
   }
 
 }

@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 
 import { Book } from './shared/book';
 
@@ -11,15 +12,26 @@ export class BookStoreService {
 
   getAll(): Observable<Book[]> {
     return this.http.get('https://book-monkey2-api.angular-buch.com/books')
-      .map(rawBooks => (<any[]>rawBooks)
-        .map(rawBook =>
-            new Book(
-              rawBook.isbn,
-              rawBook.title,
-              rawBook.description,
-              rawBook.rating)
-            )
-        );
+      .map(rawBooks => (<any[]>rawBooks).map(rawBook =>
+        new Book(
+          rawBook.isbn,
+          rawBook.title,
+          rawBook.description,
+          rawBook.rating)
+        )
+      );
+  }
+
+  getSingle(isbn: string): Observable<Book> {
+    return this.http.get(`https://book-monkey2-api.angular-buch.com/book/${isbn}`)
+      .map((rawBook: any) =>
+        new Book(
+          rawBook.isbn,
+          rawBook.title,
+          rawBook.description,
+          rawBook.rating
+        )
+      );
   }
 
 
