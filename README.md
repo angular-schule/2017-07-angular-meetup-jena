@@ -53,4 +53,4 @@ start docker container
 $ docker-compose up -d
 ```
 
-visit (http://localhost:4200)[http://localhost:4200]
+visit [http://localhost:4200](http://localhost:4200)
