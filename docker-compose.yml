@@ -1,0 +1,10 @@
+version: '3'
+services:
+  ang-01:
+    build: .
+    container_name: ang-con-01
+    volumes:
+      - ./dist:/usr/share/nginx/html
+    ports:
+      - "4200:80"
+    restart: always
