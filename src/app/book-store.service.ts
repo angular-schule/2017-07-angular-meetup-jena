@@ -12,7 +12,7 @@ export class BookStoreService {
 
   getAll(): Observable<Book[]> {
     return this.http.get('https://book-monkey2-api.angular-buch.com/books')
-      .map(rawBooks => (<any[]>rawBooks).map(rawBook =>
+      .map((rawBooks: any[]) => rawBooks.map(rawBook =>
         new Book(
           rawBook.isbn,
           rawBook.title,
